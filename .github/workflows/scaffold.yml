@@ -19,15 +19,14 @@ jobs:
           php-version: '8.1'
 
       - name: Run WP-CLI Scaffold Inside Docker
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}:/var/www/html \
-            --user $(id -u):$(id -g) \
-            wordpress:cli bash -c "
-              echo 'memory_limit = 512M' > /usr/local/etc/php/conf.d/memory.ini &&
-              wp core download --quiet &&
-              wp scaffold plugin my-plugin --plugin_name='My Plugin' --author='Your Name'
-            "
+  run: |
+    docker run --rm \
+      -v ${{ github.workspace }}:/var/www/html \
+      wordpress:cli bash -c "
+        echo 'memory_limit = 512M' > /usr/local/etc/php/conf.d/memory.ini &&
+        wp core download --quiet &&
+        wp scaffold plugin my-plugin --plugin_name='My Plugin' --author='Your Name'
+      "
 
       - name: List scaffolded files
         run: ls -R my-plugin
