@@ -22,6 +22,7 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/var/www/html \
+            --user $(id -u):$(id -g) \
             wordpress:cli bash -c "
               wp core download --quiet &&
               wp scaffold plugin my-plugin --plugin_name='My Plugin' --author='Your Name'
